@@ -2,32 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+#blob{
+    background-color: #fff;
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    border-radius:1000px;
+    background: linear-gradient(to right, rgb(255, 166, 0),rgb(255, 140, 0));
+    filter: blur(100px);
+    translate:  -50% -50%;
+    z-index: -1;
+    /* animation: rotate 20s infinite; */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+
+
+
+.under::after{
+    position:absolute;
+    content: '';
+    height: 2px;
+    width: 0px;
+    background-color: rgb(255, 115, 0);
+    top: 55px;
+    /* opacity: 0; */
+    transition: all 0.1s ease-in-out;
+
+}
+
+.under:hover::after{
+    width: 80px;
+}
+
+.title{
+    animation: horizontalscroll 3s ease-in-out 0s infinite;
+}
+
+@keyframes horizontalscroll {
+    
+    0% {
+        transform: translateX(0%);
+        /* opacity: 0; */
+    }
+    100% {
+        transform: translateX(-100%);
+        /* opacity: 0; */
+    }
+}
+
+.on{
+    opacity: 1;
+    transform: translateY(10px);
+}
+
+.navbar.trans {
+    transform: translateY(-100%);
+    transition: 3ms ease-in-out;
   }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
