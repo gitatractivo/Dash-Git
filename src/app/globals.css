@@ -60,3 +60,20 @@
     transform: translateY(-100%);
     transition: 3ms ease-in-out;
   }
+
+
+
+.backnavdrop {
+  backdrop-filter: blur(15px);
+  backface-visibility: hidden;
+  perspective: 1000;
+  transform: translateZ(0);
+  @apply backdrop-saturate-100;
+}
+
+.dark .backnavdrop {
+  backdrop-filter: blur(50px);
+  perspective: 1000;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}

@@ -7,7 +7,7 @@ export const Foot: React.FC<FootProps> = () => {
     <>
       <div className="h-[100px] w-[100vw] flex items-center bg-gray-100">
         <div className=" p-3 text-[30px] flex">
-          <Image className="h-[50px] w-[50px]" src="./dash.png" alt="D" />
+          <Image width={0} height={0} className="h-[50px] w-[50px]" src="/dash.png" alt="D" />
           <div className="ml-4 font-semibold">Dash</div>
         </div>
         <div className=" p-3 text-[14px] flex justify-between">

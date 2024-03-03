@@ -3,7 +3,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ContextProvider } from "@/components/Providers/ContextProvider";
 import { cn } from "@/lib/utils";
-import { ClerkProvider } from '@clerk/nextjs'
+import Nav from "@/components/Nav";
+import {
+  ClerkProvider,
+} from "@clerk/nextjs";
+import { Foot } from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,18 +21,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  // console.log(inter.className)
   return (
-    
-    
+
+
     <html lang="en">
-      <body className={cn(inter.className," overflow-x-hidden w-screen")}>
+      <body className={cn(inter.className, " overflow-x-hidden  min-w-screen")}>
         <ContextProvider>
           <ClerkProvider>
 
-          <div id="blob"></div>
-          {children}
+
+            <div id="blob"></div>
+            <Nav/>
+            {children}
+            <Foot/>
           </ClerkProvider>
         </ContextProvider>
+
       </body>
     </html>
   );
