@@ -3,21 +3,32 @@
 @tailwind utilities;
 
 
+/* ////// */
+
 #blob{
     background-color: #fff;
     position: absolute;
-    height: 100px;
-    width: 100px;
+    height: 300px;
+    width: 200px;
     border-radius:1000px;
     background: linear-gradient(to right, rgb(255, 166, 0),rgb(255, 140, 0));
-    filter: blur(100px);
-    translate:  -50% -50%;
+    filter: blur(150px);
+    translate:  -100px -100px;
     z-index: -1;
-    /* animation: rotate 20s infinite; */
+    animation: rotate 20s infinite;
+}
+@keyframes rotate{
+    from{
+        rotate: 0deg;
+    }
+    to{
+        rotate: 360deg;
+    }
 }
 
+/* .work{
 
-
+} */
 
 .under::after{
     position:absolute;
@@ -60,20 +71,3 @@
     transform: translateY(-100%);
     transition: 3ms ease-in-out;
   }
-
-
-
-.backnavdrop {
-  backdrop-filter: blur(15px);
-  backface-visibility: hidden;
-  perspective: 1000;
-  transform: translateZ(0);
-  @apply backdrop-saturate-100;
-}
-
-.dark .backnavdrop {
-  backdrop-filter: blur(50px);
-  perspective: 1000;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}

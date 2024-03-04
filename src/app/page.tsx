@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
 
+
   let [index, setIndex] = useState(0);
   const img = ["student.png", "document.png", "task.png"]
   const head = ["Student Information System", "Document Management", "Communication"]
@@ -11,44 +12,40 @@ export default function Home() {
 
   const title = ["A Comprehensive Command Center Tailored to Your Workflow, Unifying Efficiency and Insightful Control.", "Orchestrating Your Comprehensive Dashboard for a Streamlined Blend of Organization, Planning, and Information Management Excellence.", "Crafting a Dynamic Hub for Integrated Efficiency and Insightful Management."]
 
-
   useEffect(() => {
-    const effect = document.getElementById('effect');
-    setTimeout(() => {
-      effect?.classList.add('on')
-    }, 200)
-    setTimeout(() => {
-      effect?.classList.remove('on')
-    }, 2800)
-    const intervalId = setInterval(() => {
-      const newIndex = (index + 1) % 3;
-      setIndex(newIndex);
-    }, 3000);
-    return () => clearInterval(intervalId);
+      const effect=document.getElementById('effect');
+      setTimeout(()=>{
+          effect?.classList.add('on')
+      },200)
+      setTimeout(()=>{
+          effect?.classList.remove('on')
+      },2800)
+      const intervalId = setInterval(() => {
+          const newIndex = (index + 1) % 3;
+          setIndex(newIndex);
+      }, 3000);
+      return () => clearInterval(intervalId);
 
   }, [index])
 
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="">
 
       <div className="flex-row">
-        <div className="h-[200px] w-[100vw] flex justify-center">
+        <div className="h-[200px] w-[100vw] flex justify-center mb-[-30px]">
           <div className="h-[100%] w-[800px] flex overflow-x-auto mt-20">
             <div className="h-[100%] w-[800px] flex">
               <div className="flex-shrink-0 text-center text-[24px] font-semibold w-[100%]">
-                <h1 id="effect" className="text-center text-[24px] font-semibold w-[100%] text-black  opacity-0 transition-all 2s ease-in-out"> {`${title[index]}`}</h1></div>
+                <h1 id="effect" className="text-center text-[24px] font-semibold w-[100%] opacity-0 transition-all 2s ease-in-out">{`${title[index]}`}</h1></div>
             </div>
           </div>
         </div>
-        <div className="h-[600px] w-[100vw] flex  flex-col lg:flex-row">
-      
-          <Image width="0"
-            height="0" objectFit="cover" className="w-1/2 h-fit object-cover rounded-2xl" src="/work.png" alt="" layout="responsive" />
-          <div className="w-1/2 flex justify-center items-center">
+        <div className="h-[600px] w-[100vw] flex">
+          <div className="w-[50%] flex justify-center items-center"><img className="h-[500px] work" src="/work.png" alt="" /></div>
+          <div className="w-[50%] flex justify-center items-center">
             <div className="border-4 border-orange-500 bg-orange-100 w-[500px] h-[400px] rounded-2xl flex justify-center">
               <div className="grid mt-20  h-20 place-items-center">
-                <img className=" h-[100px] w-[100px]" src={`/${img[index]}`} alt="" />
+                <img className=" h-[100px] w-[100px]" src={`${img[index]}`} alt="" />
                 <div className=" text-[30px] text-black text-center p-3 ">{`${head[index]}`}</div>
                 <div className=" text-[20px] text-black text-center p-3 font-light">{`${text[index]}`}</div>
               </div>
