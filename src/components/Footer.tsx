@@ -7,8 +7,8 @@ export const Foot: React.FC<FootProps> = () => {
     <div className="px-5 md:px-10 py-5 flex flex-col md:flex-row justify-around items-center bg-gray-100">
       <div className=" p-3 text-[30px] flex">
         <Image
-          width="0"
-          height="0"
+          width="100"
+          height="100"
           className="h-[50px] w-[50px]"
           src="/dash.png"
           alt="D"

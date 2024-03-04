@@ -66,9 +66,9 @@ export default function Home() {
           <div className="border-4 border-orange-500 bg-orange-100 w-full max-w-[500px] h-[400px] rounded-2xl flex justify-center">
             <div className="grid mt-20  h-20 place-items-center">
               <Image
-                width="0"
-                height="0"
-                className=" h-[50px] !w-[50px]"
+                width="100"
+                height="100"
+                className=" h-[100px] !w-[100px]"
                 src={`/${img[index]}`}
                 alt=""
               />
