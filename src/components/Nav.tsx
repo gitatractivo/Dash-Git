@@ -60,7 +60,7 @@ const Nav = async ({ className }: Props) => {
         }
         {!userId && (
           <>
-            <Link href="about" className='w-[80px] h-8 flex items-center justify-center rounded-[20px]  cursor-pointer select-none  mr-2  under'>About</Link>
+            <Link href="/about" className='w-[80px] h-8 flex items-center justify-center rounded-[20px]  cursor-pointer select-none  mr-2  under'>About</Link>
             <Link href='sign-in' className='w-[80px] h-8 flex items-center justify-center rounded-[20px]  cursor-pointer select-none mr-2 under ' >Sign In</Link>
             <Link href='sign-up' className='w-[80px] h-8 flex items-center justify-center rounded-[20px] cursor-pointer select-none  bg-orange-500 text-white hover:text-white hover:bg-orange-400' >Sign Up</Link>
           </>
