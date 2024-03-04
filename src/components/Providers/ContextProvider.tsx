@@ -34,8 +34,10 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({
         { duration: 1000, fill: "forwards" }
       );
     };
+      const navbar = document.getElementsByClassName("navbar");
 
     const scrollMove = () => {
+      console.log("first,",navbar)
       var scrollPosition = window.scrollY;
       // console.log(iniposition+"%")
       console.log(scrollPosition + "*");
@@ -58,7 +60,7 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({
 
     document.body.addEventListener("pointermove", pointerMoveFunction);
 
-    const navbar = document.getElementsByClassName("navbar");
+  
     var iniposition = 0;
     window.addEventListener("scroll", scrollMove);
     return () => {

@@ -1,4 +1,4 @@
-const data:Employee[] = [
+export const data:Employee[] = [
   {
     id: "609d6f99c53502001125f758",
     name: "John Doe",
@@ -85,7 +85,7 @@ const data:Employee[] = [
 
 type Gender = "Male" | "Female" | "Other";
 
-interface Employee {
+export interface Employee {
   id: string;
   name: string;
   package: string;

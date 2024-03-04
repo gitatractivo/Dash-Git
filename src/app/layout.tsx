@@ -4,9 +4,7 @@ import "./globals.css";
 import { ContextProvider } from "@/components/Providers/ContextProvider";
 import { cn } from "@/lib/utils";
 import Nav from "@/components/Nav";
-import {
-  ClerkProvider,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Foot } from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -21,24 +19,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   // console.log(inter.className)
   return (
-
-
     <html lang="en">
-      <body className={cn(inter.className, " overflow-x-hidden  min-w-screen")}>
+      <body className={cn(inter.className, " ")}>
         <ContextProvider>
           <ClerkProvider>
-
-
-            <div id="blob"></div>
-            <Nav/>
-            {children}
-            <Foot/>
+            <div className="overflow-x-hidden min-h-screen flex flex-col gap-5 justify-between min-w-screen">
+              <div id="blob"></div>
+              <Nav />
+              {children}
+              <Foot />
+            </div>
           </ClerkProvider>
         </ContextProvider>
-
       </body>
     </html>
   );
