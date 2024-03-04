@@ -1,10 +1,12 @@
 "use client";
+import { useAuth } from "@clerk/nextjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   let [index, setIndex] = useState(0);
+  const { isSignedIn } = useAuth();
   const router = useRouter();
   const img = ["student.png", "document.png", "task.png"];
   const head = [
@@ -76,18 +78,20 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-5 md:flex-row w-full justify-between items-center ">
-        <div
-          className=" h-24 items-center max-w-[300px] w-full border-4 border-orange-500 cursor-pointer bg-orange-100 rounded-2xl flex justify-center"
-          onClick={() => {
-            router.push("/placement");
-          }}
-        >
-          Get Placement Data{" "}
+      {isSignedIn && (
+        <div className="flex flex-col gap-5 md:flex-row w-full max-w-[1100px] justify-between items-center ">
+          <div
+            className=" h-24 items-center max-w-[300px] w-full border-4 border-orange-500 cursor-pointer bg-orange-100 rounded-2xl flex justify-center"
+            onClick={() => {
+              router.push("/placement");
+            }}
+          >
+            Get Placement Data{" "}
+          </div>
+          <div className="h-24 items-center max-w-[300px] w-full border-4  border-orange-500 cursor-pointer bg-orange-100 rounded-2xl flex justify-center"></div>
+          <div className="h-24 items-center max-w-[300px] w-full border-4  border-orange-500 cursor-pointer bg-orange-100 rounded-2xl flex justify-center"></div>
         </div>
-        <div className="h-24 items-center max-w-[300px] w-full border-4  border-orange-500 cursor-pointer bg-orange-100 rounded-2xl flex justify-center"></div>
-        <div className="h-24 items-center max-w-[300px] w-full border-4  border-orange-500 cursor-pointer bg-orange-100 rounded-2xl flex justify-center"></div>
-      </div>
+      )}
     </main>
   );
 }

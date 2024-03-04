@@ -77,15 +77,15 @@
   #blob {
     background-color: #fff;
     position: absolute;
-    height: 25px;
-    width: 25px;
-    border-radius: 1000px;
-    background: linear-gradient(to right, rgb(255, 166, 0), rgb(255, 140, 0));
-    /* filter: blur(50px); */
-    /* translate: -100px -100px; */
-    z-index: 100;
-    /* animation: rotate 20s infinite; */
-    mix-blend-mode: difference;
+    height: 150px;
+    width: 150px;
+    border-radius:1000px;
+    background: linear-gradient(to right, rgb(255, 166, 0),rgb(255, 140, 0));
+    filter: blur(100px);
+    translate:  -100px -100px;
+    z-index: -1;
+    animation: rotate 20s infinite;
+    /* mix-blend-mode: difference; */
   }
   @keyframes rotate {
     from {
