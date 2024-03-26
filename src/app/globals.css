@@ -70,6 +70,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -77,24 +78,26 @@
   #blob {
     background-color: #fff;
     position: absolute;
-    height: 150px;
-    width: 150px;
-    border-radius:1000px;
-    background: linear-gradient(to right, rgb(255, 166, 0),rgb(255, 140, 0));
-    filter: blur(100px);
-    translate:  -100px -100px;
+    height: 300px;
+    width: 200px;
+    border-radius: 1000px;
+    background: linear-gradient(to right, rgb(255, 166, 0), rgb(255, 140, 0));
+    filter: blur(150px);
+    translate: -100px -100px;
     z-index: -1;
     animation: rotate 20s infinite;
-    /* mix-blend-mode: difference; */
   }
+
   @keyframes rotate {
     from {
       rotate: 0deg;
     }
+
     to {
       rotate: 360deg;
     }
   }
+
 
   /* .work{
 
@@ -103,12 +106,12 @@
   .under::after {
     position: absolute;
     content: "";
-    height: 2px;
+    height: 1px;
     width: 0px;
     background-color: rgb(255, 115, 0);
     top: 55px;
     /* opacity: 0; */
-    transition: all 0.1s ease-in-out;
+    transition: all 0.2s ease-in-out;
   }
 
   .under:hover::after {
@@ -124,6 +127,7 @@
       transform: translateX(0%);
       /* opacity: 0; */
     }
+
     100% {
       transform: translateX(-100%);
       /* opacity: 0; */
@@ -142,23 +146,39 @@
 
   ::-webkit-scrollbar {
     width: -1px !important;
-}
- 
-/* Track */
-::-webkit-scrollbar-track {
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
     background: #888 !important;
     border-radius: 5px !important;
     /* height: 5px !important; */
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
     background: #000 !important;
     border-radius: 5px !important;
-}
- 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
     background: #555 !important;
+  }
+
 }
+
+.orangeshadow {
+  background: rgba(255, 255, 255, 0.25);
+  /* box-shadow: 0 8px 32px 0 rgba(255, 127, 22, 0.477); */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+}
+
+.muj {
+  background-size: cover;
+  background-image: url('https://jaipur.manipal.edu/content/dam/manipal/muj/foa/images/SMC/SMC2/Desktop_39.jpg');
 }

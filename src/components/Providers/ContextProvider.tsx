@@ -26,10 +26,12 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({
     blob = document.getElementById("blob");
     const pointerMoveFunction = (e: any) => {
       const { clientX, clientY } = e;
+      const ClientX=clientX+window.scrollX;
+      const ClientY=clientY+window.scrollY;
       blob.animate(
         [
           { left: `${blob.style.left}`, top: `${blob.style.top}` },
-          { left: `${clientX}px`, top: `${clientY}px` },
+          { left: `${ClientX}px`, top: `${ClientY}px` },
         ],
         { duration: 1000, fill: "forwards" }
       );
@@ -58,13 +60,13 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({
       // console.log(iniposition)
     };
 
-    document.body.addEventListener("pointermove", pointerMoveFunction);
+    // document.body.addEventListener("pointermove", pointerMoveFunction);
 
   
     var iniposition = 0;
     window.addEventListener("scroll", scrollMove);
     return () => {
-      document.body.removeEventListener("pointermove", pointerMoveFunction);
+      // document.body.removeEventListener("pointermove", pointerMoveFunction);
       window.removeEventListener("scroll", scrollMove);
     };
   }, [blob]);

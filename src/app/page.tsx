@@ -3,6 +3,14 @@ import { useAuth } from "@clerk/nextjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 export default function Home() {
   let [index, setIndex] = useState(0);
@@ -42,29 +50,37 @@ export default function Home() {
   }, [index]);
 
   return (
-    <main className="flex gap-10 py-5 flex-col items-center justify-between px-5 lg:p-24">
+    <main className="flex gap-10 py-5 flex-col items-center justify-between px-5 lg:p-24 mt-[80px]">
+      <style jsx>
+        {`
+          .on {
+            opacity: 1;
+            transform: translateY(10px);
+          }
+        `}
+      </style>
       <h1
         id="effect"
-        className="text-center text-base   lg:text-[24px] font-semibold  text-black h-24 md:h-fit  transition-all 2s ease-in-out"
+        className="text-center text-md opacity-0 lg:text-[24px] font-semibold  text-black h-[100px]  transition-all 2s ease-in-out"
       >
         {" "}
         {`${title[index]}`}
       </h1>
-
-      <div className=" flex  flex-col gap-5 md:flex-row">
+      <div className="muj h-fit w-[100vw] md:pl-20 md:pr-20 p-3">
+      <div className=" flex flex-col gap-5 md:flex-row orangeshadow p-4">
         <Image
           width="0"
           height="0"
           objectFit="cover"
-          className="!w-[150px] mx-auto  md:!w-1/2 h-fit object-cover rounded-2xl"
+          className="hidden md:block !w-[150px] mx-auto  md:!w-1/2 h-fit object-cover rounded-2xl"
           src="/work.png"
           alt=""
           layout="responsive"
           sizes="(max-width: 768px) 150px, (max-width: 1200px) 50vw, 33vw"
         />
         <div className="w-full md:w-1/2 flex justify-center items-center">
-          <div className="border-4 border-orange-500 bg-orange-100 w-full max-w-[500px] h-[400px] rounded-2xl flex justify-center">
-            <div className="grid mt-20  h-20 place-items-center">
+          <div className="border w-full max-w-[500px] h-[400px] rounded-2xl flex justify-center bg-white">
+            <div className="grid mt-7 lg:mt-20  h-20 place-items-center ">
               <Image
                 width="100"
                 height="100"
@@ -72,25 +88,44 @@ export default function Home() {
                 src={`/${img[index]}`}
                 alt=""
               />
-              <div className=" text-[30px] text-black text-center p-3 ">{`${head[index]}`}</div>
-              <div className=" text-[20px] text-black text-center p-3 font-light">{`${text[index]}`}</div>
+              <div className="lg:text-[30px] text-[24px] text-center font-bold p-3">{`${head[index]}`}</div>
+              <div className=" text-md md:text-[18px] text-black text-center p-3 font-light">{`${text[index]}`}</div>
             </div>
           </div>
         </div>
       </div>
+      </div>
       {isSignedIn && (
-        <div className="flex flex-col gap-5 md:flex-row w-full max-w-[1100px] justify-between items-center ">
-          <div
-            className=" h-24 items-center max-w-[300px] w-full border-4 border-orange-500 cursor-pointer bg-orange-100 rounded-2xl flex justify-center"
-            onClick={() => {
+        <div className="m-10 lg:pl-20 lg:pr-20 grid lg:flex lg:justify-between w-full">
+          <Card className="m-2 text-orange-400 border-orange-400 hover:scale-105 transition-all 0.5s ease-in-out cursor-pointer" onClick={() => {
               router.push("/placement");
-            }}
-          >
-            Get Placement Data{" "}
-          </div>
-          <div className="h-24 items-center max-w-[300px] w-full border-4  border-orange-500 cursor-pointer bg-orange-100 rounded-2xl flex justify-center"></div>
-          <div className="h-24 items-center max-w-[300px] w-full border-4  border-orange-500 cursor-pointer bg-orange-100 rounded-2xl flex justify-center"></div>
+            }}>
+            <CardHeader>
+              <CardTitle>Campus Placements</CardTitle>
+              <CardDescription>Details of Students who got placed.</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="m-2 text-orange-400 border-orange-400 hover:scale-105 transition-all 0.5s ease-in-out cursor-pointer" onClick={() => {
+              router.push("/placement");
+            }}>
+            <CardHeader>
+              <CardTitle>Announcements</CardTitle>
+              <CardDescription>Announce information here.</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="m-2 text-orange-400 border-orange-400 hover:scale-105 transition-all 0.5s ease-in-out cursor-pointer" onClick={() => {
+              router.push("/placement");
+            }}>
+            <CardHeader>
+              <CardTitle>Documents</CardTitle>
+              <CardDescription>Store important documents here.</CardDescription>
+            </CardHeader>
+          </Card>
+
         </div>
+
+
+
       )}
     </main>
   );

@@ -26,7 +26,7 @@ export default function RootLayout({
         <ContextProvider>
           <ClerkProvider>
             <div className="overflow-x-hidden min-h-screen flex flex-col gap-5 justify-between min-w-screen">
-              <div id="blob"></div>
+              {/* <div id="blob"></div> */}
               <Nav />
               {children}
               <Foot />
