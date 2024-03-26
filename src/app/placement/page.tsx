@@ -47,7 +47,7 @@ import { Input } from "@/components/ui/input"
 
 
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
 
   const gender = [
     {
@@ -276,4 +276,4 @@ const page = (props: Props) => {
   );
 }
 
-export default page
+export default Page
