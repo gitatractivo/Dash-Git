@@ -60,7 +60,7 @@ const page = (props: Props) => {
     }
   ] as const
 
-  const formSchema = z.object({
+  const formSchema:any = z.object({
     name: z.string().min(2).max(50),
     package: z.string(),
     age: z.number(),
@@ -78,7 +78,7 @@ const page = (props: Props) => {
 
   // function ProfileForm() {
   // 1. Define your form.
-  const form = useForm<z.infer<typeof formSchema>>({
+  const Formf = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -138,10 +138,10 @@ const page = (props: Props) => {
             <SheetDescription>
               Add a new student details who got placed.
             </SheetDescription>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1 ">
+            <Form {...Formf}>
+              <form onSubmit={Formf.handleSubmit(onSubmit)} className="space-y-1 ">
                 <FormField 
-                  control={form.control}
+                  control={Formf.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
@@ -154,7 +154,7 @@ const page = (props: Props) => {
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={Formf.control}
                   name="package"
                   render={({ field }) => (
                     <FormItem>
@@ -167,7 +167,7 @@ const page = (props: Props) => {
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={Formf.control}
                   name="age"
                   render={({ field }) => (
                     <FormItem>
@@ -180,7 +180,7 @@ const page = (props: Props) => {
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={Formf.control}
                   name="gender"
                   render={() => (
                     <FormItem>
@@ -190,7 +190,7 @@ const page = (props: Props) => {
                       {gender.map((item) => (
                         <FormField
                           key={item.id}
-                          control={form.control}
+                          control={Formf.control}
                           name="gender"
                           render={({ field }) => {
                             return (
@@ -206,7 +206,7 @@ const page = (props: Props) => {
                                         ? field.onChange([field.value, item.id])
                                         : field.onChange(
                                           field.value?.filter(
-                                            (value) => value !== item.id
+                                            (value:any) => value !== item.id
                                           )
                                         )
                                     }}
@@ -225,7 +225,7 @@ const page = (props: Props) => {
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={Formf.control}
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
@@ -238,7 +238,7 @@ const page = (props: Props) => {
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={Formf.control}
                   name="company"
                   render={({ field }) => (
                     <FormItem>
@@ -251,7 +251,7 @@ const page = (props: Props) => {
                   )}
                 />
                 <FormField
-                  control={form.control}
+                  control={Formf.control}
                   name="cgpa"
                   render={({ field }) => (
                     <FormItem>
