@@ -19,6 +19,8 @@ export const Usecontext = () => {
 export const ContextProvider: React.FC<ContextProviderProps> = ({
   children,
 }) => {
+ 
+
   let blob: any;
   useEffect(() => {
     // eslint-disable-next-line
@@ -70,6 +72,8 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({
       window.removeEventListener("scroll", scrollMove);
     };
   }, [blob]);
+
+  
   return (
     <Context.Provider value={{}}>
       
