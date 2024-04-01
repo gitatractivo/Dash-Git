@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(uuid()) @db.Uuid
+  email        String        @unique
+  name         String?
+  role         Role          @default(STUDENT)
+  Attendance   Attendance[]
+  Subject      Subject[]
+  regNo        String?       @unique
+  Package      Package?
+  Announcement Announcement?
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+}
+
+model Subject {
+  id      String  @id @default(uuid()) @db.Uuid
+  name    String
+  classes Class[]
+  student User[]
+}
+
+model Class {
+  id         String       @id @default(uuid()) @db.Uuid
+  date       DateTime
+  subject    Subject      @relation(fields: [subjectId], references: [id])
+  subjectId  String       @db.Uuid
+  attendance Attendance[]
+}
+
+model Attendance {
+  id        String           @id @default(uuid()) @db.Uuid
+  student   User             @relation(fields: [studentId], references: [id])
+  studentId String           @db.Uuid
+  class     Class            @relation(fields: [classId], references: [id])
+  classId   String           @db.Uuid
+  status    AttendanceStatus
+
+  @@unique([studentId, classId])
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+}
+
+model Company {
+  id       String    @id @default(uuid()) @db.Uuid
+  name     String
+  location String?
+  Package  Package[]
+}
+
+model Package {
+  id        String  @id @default(uuid()) @db.Uuid
+  companyId String  @db.Uuid
+  company   Company @relation(fields: [companyId], references: [id])
+  salary    Float
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String  @unique @db.Uuid
+}
+
+model Announcement {
+  id        String   @id @default(uuid()) @db.Uuid
+  for       Role     @default(STUDENT)
+  text      String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique @db.Uuid
+  createdAt DateTime @default(now())
+}
