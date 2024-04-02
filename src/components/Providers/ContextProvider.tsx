@@ -22,15 +22,48 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({
  
 
   let blob: any;
+  let blob2: any;
+  let hoverEffect: any;
+  let mainWindow: any;
+  let isHover = false;
   useEffect(() => {
     // eslint-disable-next-line
     // alert("hello")
     blob = document.getElementById("blob");
+    blob2 = document.getElementById("blob2");
+    mainWindow = document.getElementById("mainwindow");
+
+    // hoverEffect=document.getElementById("effect");
+    hoverEffect=document.querySelectorAll(".effect");
+    
+    Array.from(hoverEffect).forEach((he:any) => {
+      he.addEventListener('mouseover', () => {
+        blob2.classList.remove('hidden');
+        blob.classList.add('hidden');
+        mainWindow.classList.add("bg-orange-200");
+      });
+    
+      he.addEventListener('mouseout', () => {
+        blob2.classList.add('hidden');
+        blob.classList.remove('hidden');
+        mainWindow.classList.remove("bg-orange-200");
+      });
+    });
+    
+   
+
     const pointerMoveFunction = (e: any) => {
       const { clientX, clientY } = e;
       const ClientX=clientX+window.scrollX;
       const ClientY=clientY+window.scrollY;
       blob.animate(
+        [
+          { left: `${blob.style.left}`, top: `${blob.style.top}` },
+          { left: `${ClientX}px`, top: `${ClientY}px` },
+        ],
+        { duration: 1000, fill: "forwards" }
+      );
+      blob2&&blob2.animate(
         [
           { left: `${blob.style.left}`, top: `${blob.style.top}` },
           { left: `${ClientX}px`, top: `${ClientY}px` },
@@ -62,16 +95,31 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({
       // console.log(iniposition)
     };
 
-    // document.body.addEventListener("pointermove", pointerMoveFunction);
+    document.body.addEventListener("pointermove", pointerMoveFunction);
 
   
     var iniposition = 0;
     window.addEventListener("scroll", scrollMove);
     return () => {
-      // document.body.removeEventListener("pointermove", pointerMoveFunction);
+      document.body.removeEventListener("pointermove", pointerMoveFunction);
       window.removeEventListener("scroll", scrollMove);
+      hoverEffect=document.querySelectorAll(".effect");
+    
+      Array.from(hoverEffect).forEach((he:any) => {
+        he.removeEventListener('mouseover', () => {
+          blob2.classList.remove('hidden');
+          blob.classList.add('hidden');
+          mainWindow.classList.add("bg-orange-200");
+        });
+      
+        he.removeEventListener('mouseout', () => {
+          blob2.classList.add('hidden');
+          blob.classList.remove('hidden');
+          mainWindow.classList.remove("bg-orange-200");
+        });
+      });
     };
-  }, [blob]);
+  }, [blob,blob2]);
 
   
   return (

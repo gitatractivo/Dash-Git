@@ -78,13 +78,28 @@
   #blob {
     background-color: #fff;
     position: absolute;
-    height: 300px;
+    height: 20px;
+    width: 20px;
+    border-radius: 1000px;
+    /* background: linear-gradient(to right, rgb(255, 166, 0), rgb(255, 140, 0)); */
+    background-color: rgb(255, 135, 66);;
+    /* filter: blur(10px); */
+    translate: -10px -10px;
+    z-index: -1;
+    animation: rotate 20s infinite;
+  }
+  #blob2 {
+    background-color: #fff;
+    position: absolute;
+    height: 200px;
     width: 200px;
     border-radius: 1000px;
-    background: linear-gradient(to right, rgb(255, 166, 0), rgb(255, 140, 0));
-    filter: blur(150px);
+    /* background: linear-gradient(to right, rgb(255, 166, 0), rgb(255, 140, 0)); */
+    /* background-color: rgb(122, 116, 242); */
+    background-color: white;
+    /* filter: blur(100px); */
     translate: -100px -100px;
-    z-index: -1;
+    z-index: 0;
     animation: rotate 20s infinite;
   }
 
@@ -106,7 +121,7 @@
   .under::after {
     position: absolute;
     content: "";
-    height: 1px;
+    height: 2px;
     width: 0px;
     background-color: rgb(255, 115, 0);
     top: 55px;
@@ -180,5 +195,13 @@
 
 .muj {
   background-size: cover;
-  background-image: url('https://jaipur.manipal.edu/content/dam/manipal/muj/foa/images/SMC/SMC2/Desktop_39.jpg');
+  opacity: 0.9;
+  background-image: url("https://media.licdn.com/dms/image/C4D1BAQGhe_2ZlvqgCA/company-background_10000/0/1629008605912/department_of_cse_muj_cover?e=2147483647&v=beta&t=jeVggyW5X3AuZzYI2PD8dKsxPtnNB1vEv26H1A2PjGA");
+}
+
+.acad{
+
+  background-size: cover;
+  background-image: url("https://img.freepik.com/free-vector/flat-background-class-2023-graduation_23-2150291538.jpg?size=626&ext=jpg&ga=GA1.1.1224184972.1711929600&semt=sph");
+
 }
