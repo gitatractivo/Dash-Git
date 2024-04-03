@@ -35,14 +35,14 @@ const Nav = async ({ className }: Props) => {
           <div className='flex gap-4'>
             {/* <Link href="/about" className='w-[80px] h-8 flex items-center justify-center rounded-[20px] p-2 cursor-pointer select-none    under'>About</Link> */}
             <Link
-              href='sign-in sm:hidden'
-              className=' h-8 flex items-center justify-center rounded-[20px] p-2 cursor-pointer select-none    under '
+              href='sign-in'
+              className='hidden sm:flex  h-8 items-center justify-center rounded-[20px] p-2 cursor-pointer select-none    under '
             >
               Sign In
             </Link>
             <Link
-              href='sign-up sm:hidden'
-              className=' h-8 flex items-center justify-center rounded-[20px] p-2 cursor-pointer select-none    under '
+              href='sign-up'
+              className='hidden sm:flex  h-8  items-center justify-center rounded-[20px] p-2 cursor-pointer select-none    under '
             >
               Sign Up
             </Link>

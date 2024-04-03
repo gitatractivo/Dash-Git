@@ -161,8 +161,16 @@ export default function Home() {
           </div>
         </div>
         
+
         
-        <div className="h-fit w-full flex justify-center items-center">
+        
+        
+        </>
+
+      }
+
+       
+<div className="h-fit w-full flex justify-center items-center">
           <div className="grid h-[400px] bg-white w-[600px] m-2 border rounded-2xl text-orange-400 border-orange-400 hover:scale-105 transition-all 0.5s ease-in-out cursor-pointer">
             <div className="flex m-4 items-center"><Image
               width="100"
@@ -203,12 +211,6 @@ export default function Home() {
             /><div>Offer real-time updates and mobile accessibility for convenience.</div></div>
           </div>
         </div>
-
-        
-        
-        
-        </>
-      }
 
     </main>
   );

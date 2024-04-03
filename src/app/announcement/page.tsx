@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react"
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button"
@@ -14,10 +15,11 @@ import {
 
 export default function Page() {
     const router = useRouter();
+
     return (
         <div className="m-40">
         <Card className=" m-10 text-orange-400 border-orange-400 hover:scale-105 transition-all 0.5s ease-in-out cursor-pointer" onClick={() => {
-            // router.push("/placement/createAnnouncement");
+            router.push("/createAnnouncement");
           }}>
             <CardHeader>
                 <CardTitle>Create Announcement</CardTitle>
