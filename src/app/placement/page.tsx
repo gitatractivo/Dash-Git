@@ -46,7 +46,6 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Gender } from '@prisma/client';
 import prisma from '@/lib/prisma';
-import { createPackageAction } from '../actions/createPackage';
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
