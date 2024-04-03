@@ -7,6 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Gender {
+  MALE
+  FEMALE
+}
+
 model User {
   id           String        @id @default(uuid()) @db.Uuid
   email        String        @unique
@@ -17,6 +22,9 @@ model User {
   regNo        String?       @unique
   Package      Package?
   Announcement Announcement?
+  gender Gender?
+  phone String? @unique
+
 }
 
 enum Role {
@@ -67,7 +75,7 @@ model Package {
   companyId String  @db.Uuid
   company   Company @relation(fields: [companyId], references: [id])
   salary    Float
-  user      User    @relation(fields: [userId], references: [id])
+  user      User    @relation(fields: [userId], references: [id],onDelete: Cascade)
   userId    String  @unique @db.Uuid
 }
 
