@@ -119,7 +119,7 @@ export const ContextProvider: React.FC<ContextProviderProps> = ({
         });
       });
     };
-  }, [blob,blob2]);
+  }, [blob,blob2,hoverEffect]);
 
   
   return (

@@ -81,7 +81,7 @@ export default function Home() {
         {`${title[index]}`}
       </h1>
 
-      <div className="muj h-fit w-[100vw] md:pl-20 md:pr-20 p-3">
+      <div className="mu bg-orange-200 h-fit w-[100vw] md:pl-20 md:pr-20 p-3">
         <div className=" flex flex-col gap-5 md:flex-row orangeshadow p-4">
           <Image
             width="0"
@@ -122,7 +122,7 @@ export default function Home() {
             </CardHeader>
           </Card>
           <Card className=" m-2 text-orange-400 border-orange-400 hover:scale-105 transition-all 0.5s ease-in-out cursor-pointer" onClick={() => {
-            router.push("/placement");
+            router.push("/announcement");
           }}>
             <CardHeader>
               <CardTitle>Announcements</CardTitle>

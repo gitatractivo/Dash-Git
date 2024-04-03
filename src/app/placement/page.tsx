@@ -60,16 +60,14 @@ const Page = (props: Props) => {
     }
   ] as const
 
-  const formSchema:any = z.object({
+  const formSchema: any = z.object({
     name: z.string().min(2).max(50),
     package: z.string(),
     age: z.number(),
-    gender: z.array(z.string()).refine((value) => value.some((item) => item), {
-      message: "You have to select at least one item.",
-    }),
+    gender: z.string(),
     phone: z.string().min(10, {
       message: "Number must be 10 digits.",
-    }).max(10,{message: "Number must be 10 digits.",}),
+    }).max(10, { message: "Number must be 10 digits.", }),
     company: z.string().min(2).max(50),
     cgpa: z.number(),
 
@@ -89,6 +87,7 @@ const Page = (props: Props) => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    data.push(values)
     console.log(values)
   }
   // }
@@ -140,7 +139,7 @@ const Page = (props: Props) => {
             </SheetDescription>
             <Form {...Formf}>
               <form onSubmit={Formf.handleSubmit(onSubmit)} className="space-y-1 ">
-                <FormField 
+                <FormField
                   control={Formf.control}
                   name="name"
                   render={({ field }) => (
@@ -173,7 +172,7 @@ const Page = (props: Props) => {
                     <FormItem>
                       <FormLabel>Age</FormLabel>
                       <FormControl>
-                        <Input placeholder="Age" {...field} />
+                        <Input placeholder="Age" {...field} onChange={(e) => field.onChange(parseInt(e.target.value))} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -182,43 +181,23 @@ const Page = (props: Props) => {
                 <FormField
                   control={Formf.control}
                   name="gender"
-                  render={() => (
+                  render={({ field }) => (
                     <FormItem>
                       <div className="mb-4">
                         <FormLabel>Gender</FormLabel>
                       </div>
                       {gender.map((item) => (
-                        <FormField
-                          key={item.id}
-                          control={Formf.control}
-                          name="gender"
-                          render={({ field }) => {
-                            return (
-                              <FormItem
-                                key={item.id}
-                                className="flex  items-start space-x-3 space-y-0"
-                              >
-                                <FormControl>
-                                  <Checkbox
-                                    checked={field.value?.includes(item.id)}
-                                    onCheckedChange={(checked) => {
-                                      return checked
-                                        ? field.onChange([field.value, item.id])
-                                        : field.onChange(
-                                          field.value?.filter(
-                                            (value:any) => value !== item.id
-                                          )
-                                        )
-                                    }}
-                                  />
-                                </FormControl>
-                                <FormLabel className="font-normal">
-                                  {item.label}
-                                </FormLabel>
-                              </FormItem>
-                            )
-                          }}
-                        />
+                        <FormItem key={item.id} className="flex items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value === item.id}
+                              onCheckedChange={(checked) => {
+                                field.onChange(checked ? item.id : undefined);
+                              }}
+                            />
+                          </FormControl>
+                          <FormLabel className="font-normal">{item.label}</FormLabel>
+                        </FormItem>
                       ))}
                       <FormMessage />
                     </FormItem>
@@ -257,7 +236,7 @@ const Page = (props: Props) => {
                     <FormItem>
                       <FormLabel>Cgpa</FormLabel>
                       <FormControl>
-                        <Input placeholder="Cgpa" {...field} />
+                        <Input placeholder="Cgpa" {...field} onChange={(e) => field.onChange(parseInt(e.target.value))} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
