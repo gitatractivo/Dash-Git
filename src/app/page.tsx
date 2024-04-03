@@ -156,7 +156,7 @@ export default function Home() {
 
         <div className="bg-orange-200  h-fit w-[100vw] md:pl-20 md:pr-20 p-3">
           <div className="gap-5 grid orangeshadow p-4 h-[500px] m-10 justify-items-center">
-            <div className="lg:text-[24px] text-[16px]  text-center font-bold p-3 rounded-2xl">Unlock the full potential of your educational institution with Dash's innovative features, designed to streamline operations and enhance productivity. Say goodbye to manual paperwork and hello to automated processes that save time and resources.</div>
+            <div className="lg:text-[24px] text-[16px]  text-center font-bold p-3 rounded-2xl">Unlock the full potential of your educational institution with Dash&apos;s innovative features, designed to streamline operations and enhance productivity. Say goodbye to manual paperwork and hello to automated processes that save time and resources.</div>
             <Link href='sign-up' className='effect w-[100px] h-20 flex items-center justify-center rounded-[20px] cursor-pointer select-none  bg-orange-500 text-white hover:text-white hover:bg-orange-400'>Sign Up</Link>
           </div>
         </div>

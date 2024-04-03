@@ -48,7 +48,7 @@ import { Gender } from '@prisma/client';
 import prisma from '@/lib/prisma';
 import { createPackageAction } from '../actions/createPackage';
 
-export const formSchema = z.object({
+const formSchema = z.object({
   name: z.string().min(2).max(50),
   package: z.string(),
   gender: z.nativeEnum(Gender),
