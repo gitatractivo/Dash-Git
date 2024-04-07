@@ -46,6 +46,13 @@ const layout = ({
       variant: "default",
 
     },
+    {
+      title: 'Placement',
+      path: '/admin/placement',
+      icon: Home,
+      variant: "default",
+
+    },
 
   ]
 
