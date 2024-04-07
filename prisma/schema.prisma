@@ -13,49 +13,69 @@ enum Gender {
 }
 
 model User {
-  id           String        @id @default(uuid()) @db.Uuid
-  email        String        @unique
-  name         String?
-  role         Role          @default(STUDENT)
-  Attendance   Attendance[]
-  Subject      Subject[]
-  regNo        String?       @unique
-  Package      Package?
-  Announcement Announcement?
-  gender Gender?
-  phone String? @unique
-
+  id            String        @id @default(uuid()) @db.Uuid
+  email         String        @unique
+  name          String?
+  role          Role          @default(STUDENT)
+  attendance    Attendance[]
+  subject       Subject[]     @relation(name: "student")
+  regNo         String?       @unique
+  package       Package?
+  announcement  Announcement?
+  gender        Gender?
+  phone         String?       @unique
+  subjectTaught Subject[]     @relation(name: "teacher")
+  course        Course?        @relation(fields: [courseId], references: [id])
+  courseId      String?        @db.Uuid
 }
 
 enum Role {
   STUDENT
   TEACHER
+  ADMIN
 }
 
 model Subject {
-  id      String  @id @default(uuid()) @db.Uuid
-  name    String
-  classes Class[]
-  student User[]
+  id        String @id @default(uuid()) @db.Uuid
+  name      String
+  course    Course @relation(fields: [courseId], references: [id])
+  courseId  String @db.Uuid
+  teacher   User   @relation(name: "teacher", fields: [teacherId], references: [id])
+  teacherId String @db.Uuid
+  student   User[] @relation(name: "student")
+  Lecture Lecture[]
+  session  String
+  semester String
+  // Attendance Attendance[]
 }
 
-model Class {
-  id         String       @id @default(uuid()) @db.Uuid
-  date       DateTime
+model Lecture {
+  id        String       @id @default(uuid()) @db.Uuid
+  date      DateTime
   subject    Subject      @relation(fields: [subjectId], references: [id])
   subjectId  String       @db.Uuid
   attendance Attendance[]
+}
+
+model Course {
+  id       String    @id @default(uuid()) @db.Uuid
+  date     DateTime
+  subject  Subject[]
+  students User[]
 }
 
 model Attendance {
   id        String           @id @default(uuid()) @db.Uuid
   student   User             @relation(fields: [studentId], references: [id])
   studentId String           @db.Uuid
-  class     Class            @relation(fields: [classId], references: [id])
-  classId   String           @db.Uuid
+  // class     Class            @relation(fields: [classId], references: [id])
+  // classId   String           @db.Uuid
+  // subjectId String           @db.Uuid
   status    AttendanceStatus
+  lecture   Lecture          @relation(fields: [lectureId], references: [id])
+  lectureId String           @db.Uuid
 
-  @@unique([studentId, classId])
+  @@unique([studentId, lectureId])
 }
 
 enum AttendanceStatus {
@@ -75,7 +95,7 @@ model Package {
   companyId String  @db.Uuid
   company   Company @relation(fields: [companyId], references: [id])
   salary    Float
-  user      User    @relation(fields: [userId], references: [id],onDelete: Cascade)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String  @unique @db.Uuid
 }
 

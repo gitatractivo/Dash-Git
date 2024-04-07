@@ -25,13 +25,16 @@ export default function RootLayout({
       <body className={cn(inter.className, " ")}>
         <ContextProvider>
           <ClerkProvider>
+              <Nav />
             <div className="overflow-x-hidden min-h-screen flex flex-col gap-5 justify-between min-w-screen">
               <div id="blob"></div>
               <div id="blob2" className="hidden"></div>
-              <Nav />
+              <div className="mt-20 min-h-[calc(100%+160px)] w-full">
               {children}
-              <Foot />
+    
+              </div>
             </div>
+              <Foot />
           </ClerkProvider>
         </ContextProvider>
       </body>

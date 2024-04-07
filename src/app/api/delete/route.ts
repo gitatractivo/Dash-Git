@@ -9,6 +9,7 @@ export const GET = async () => {
     // Delete records in the correct order
     await prisma.package.deleteMany();
     await prisma.user.deleteMany();
+    
     await prisma.company.deleteMany();
 
     // Re-enable foreign key checks

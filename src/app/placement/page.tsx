@@ -65,9 +65,13 @@ const formSchema = z.object({
 // 1. Define your form.
 export type PackageFormValues = z.infer<typeof formSchema>
 
-const gender = Object.keys(Gender).map(key => {
-  return { id: key, label: key }
-})
+const gender = [{
+  id: "MALE",
+  label: "MALE"
+}, {
+  id: "FEMALE",
+  label: "FEMALE"
+}]
 
 interface Package {
   id: string;
