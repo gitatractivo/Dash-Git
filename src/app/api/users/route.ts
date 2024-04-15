@@ -30,11 +30,13 @@ export const POST = async (request: Request) => {
 export const GET = async () => {
   const users = await prisma.user.findMany({
     include: {
-      Attendance: true,
-      Subject: true,
-      Package: true,
+      attendance: true,
+      subject: true,
+      package: true,
     },
   });
+
+  console.log("users",users)
 
   return NextResponse.json(users);
 };
