@@ -11,10 +11,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from 'react-hook-form'
-import { createPackageSchema } from '@/lib/schema'
+import { createAnnouncementSchema } from '@/lib/schema'
 import { z } from "zod"
 import {
   Select,
@@ -24,28 +24,27 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 type Props = {
-  companies: Company[];
-  students: User[];
+  users: User[];
 }
 import { useFormState } from "react-dom"
-import { createPackageAction } from '@/app/actions'
+import { createAnnouncementAction } from '@/app/actions'
 import { toast } from 'sonner'
-import { Company, User } from '@prisma/client'
+import { User } from '@prisma/client'
 
-const PackageCreate = ({ companies, students }: Props) => {
+const AnnouncementCreate = ({ users }: Props) => {
 
-  const form = useForm<z.infer<typeof createPackageSchema>>({
-    resolver: zodResolver(createPackageSchema),
+  const form = useForm<z.infer<typeof createAnnouncementSchema>>({
+    resolver: zodResolver(createAnnouncementSchema),
   })
 
-  async function onSubmit(values: z.infer<typeof createPackageSchema>) {
+  async function onSubmit(values: z.infer<typeof createAnnouncementSchema>) {
     const formData = new FormData();
     Object.entries(values).forEach(([key, value]) => {
       formData.append(key, value as string | Blob);
     });
-    const resp = await createPackageAction(formData)
+    const resp = await createAnnouncementAction(formData)
     if (resp.success) {
-      toast.success("Package created")
+      toast.success("Announcement created")
     }
     else {
       toast.error(resp.errors?.map((e) => e.message).join(", "))
@@ -53,44 +52,42 @@ const PackageCreate = ({ companies, students }: Props) => {
   }
 
   return (
-    <div className='flex flex-col gap-3'>Add Package
+    <div className='flex flex-col gap-3'>Add Announcement
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit, (inval) => {
           console.log("inval", inval)
         })} className="space-y-8">
           <FormField
             control={form.control}
-            name="companyId"
+            name="text"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Company</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a company" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {companies.map((company) => (
-                      <SelectItem key={company.id} value={company.id}>
-                        {company.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <FormLabel>Text</FormLabel>
+                <FormControl>
+                  <Textarea placeholder="Announcement text" {...field} />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="salary"
+            name="for"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Salary</FormLabel>
-                <FormControl>
-                  <Input type="number" placeholder="Salary" {...field} />
-                </FormControl>
+                <FormLabel>For</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a role" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="STUDENT">Student</SelectItem>
+                    <SelectItem value="FACULTY">Faculty</SelectItem>
+                    <SelectItem value="ADMIN">Admin</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
@@ -100,17 +97,17 @@ const PackageCreate = ({ companies, students }: Props) => {
             name="userId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Student</FormLabel>
+                <FormLabel>User</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a student" />
+                      <SelectValue placeholder="Select a user" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {students.map((student) => (
-                      <SelectItem key={student.id} value={student.id}>
-                        {student.name}
+                    {users.map((user) => (
+                      <SelectItem key={user.id} value={user.id}>
+                        {user.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -126,4 +123,4 @@ const PackageCreate = ({ companies, students }: Props) => {
   )
 }
 
-export default PackageCreate
+export default AnnouncementCreate

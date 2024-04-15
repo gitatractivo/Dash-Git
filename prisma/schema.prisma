@@ -23,7 +23,7 @@ model User {
   package       Package?
   announcement  Announcement?
   gender        Gender?
-  phone         String?          @unique
+  phone         String?       @unique
   subjectTaught Subject[]     @relation(name: "teacher")
   course        Course?       @relation(fields: [courseId], references: [id])
   courseId      String?       @db.Uuid

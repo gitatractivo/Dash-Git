@@ -1,11 +1,14 @@
-import React from 'react'
+import { prisma } from '@/lib/prisma';
+import SubjectCreate from './_components/SubjectCreate';
 
-type Props = {}
+export default async function Page() {
+  const courses = await prisma.course.findMany();
+  const teachers = await prisma.user.findMany({ where: { role: 'TEACHER' } });
 
-const page = (props: Props) => {
   return (
-    <div>subject</div>
-  )
+    <div>
+      <h1>Create Subject</h1>
+      <SubjectCreate courses={courses} teachers={teachers} />
+    </div>
+  );
 }
-
-export default page
