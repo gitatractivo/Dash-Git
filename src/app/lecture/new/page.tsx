@@ -34,7 +34,8 @@ const NewLecture = (props: Props) => {
     <div className='w-full flex flex-col gap-4 justify-center items-center'>
 
       <h1>Lecture {window.location.host + qrCodeUrl}</h1>
-      <QRCodeCanvas value={qrCodeUrl} />
+      {/* @ts-ignore */}
+      {leacture?.id&&(<QRCodeCanvas value={qrCodeUrl} />)}
       {/* Display the list of students whose attendance is marked */}
     </div>
   )

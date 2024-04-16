@@ -23,16 +23,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-type Props = {
-  students: User[];
-}
+
 import { useFormState } from "react-dom"
 import { createCourseAction } from '@/app/actions'
 import { toast } from 'sonner'
 import { User } from '@prisma/client'
 import { Loader2 } from 'lucide-react'
 
-const CourseCreate = ({ students }: Props) => {
+const CourseCreate = () => {
 
   const form = useForm<z.infer<typeof createCourseSchema>>({
     resolver: zodResolver(createCourseSchema),

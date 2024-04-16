@@ -54,7 +54,7 @@ const PackageCreate = ({  students }: Props) => {
   }
 
   return (
-    <div className='flex flex-col gap-3'>Add Package
+      <div className='flex flex-col gap-3'>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit, (inval) => {
           console.log("inval", inval)

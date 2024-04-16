@@ -33,9 +33,16 @@ const LectureComponent = () => {
   };
 
   return (
-    <div className='mt-4 mx-4'>
+    <div className='mt-4 mx-4 flex flex-col gap-4'>
+      <h1 className='text-xl font-bold'>
+
+      Create a new lecture 
+      </h1>
+      {
+        !isLoaded && <p>Loading...</p>
+      }
       {isLoaded && user?.role === 'TEACHER' && (
-        <div>
+        <div className='flex gap-3'>
           <select value={selectedSubject} onChange={handleSubjectChange}>
             <option value="">Select a subject</option>
             {subjects.map((subject:any) => (
