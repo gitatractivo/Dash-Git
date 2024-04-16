@@ -11,10 +11,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Textarea } from "@/components/ui/textarea"
+import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from 'react-hook-form'
-import { createAnnouncementSchema } from '@/lib/schema'
+import { createPackageSchema } from '@/lib/schema'
 import { z } from "zod"
 import {
   Select,
@@ -24,28 +24,29 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 type Props = {
-  users: User[];
+  // companies: Company[];
+  students: User[];
 }
 import { useFormState } from "react-dom"
-import { createAnnouncementAction } from '@/app/actions'
+import { createPackageAction } from '@/app/actions'
 import { toast } from 'sonner'
-import { User } from '@prisma/client'
+import { Company, User } from '@prisma/client'
 import { Loader2 } from 'lucide-react'
 
-const AnnouncementCreate = ({ users }: Props) => {
+const PackageCreate = ({  students }: Props) => {
 
-  const form = useForm<z.infer<typeof createAnnouncementSchema>>({
-    resolver: zodResolver(createAnnouncementSchema),
+  const form = useForm<z.infer<typeof createPackageSchema>>({
+    resolver: zodResolver(createPackageSchema),
   })
 
-  async function onSubmit(values: z.infer<typeof createAnnouncementSchema>) {
+  async function onSubmit(values: z.infer<typeof createPackageSchema>) {
     const formData = new FormData();
     Object.entries(values).forEach(([key, value]) => {
       formData.append(key, value as string | Blob);
     });
-    const resp = await createAnnouncementAction(formData)
+    const resp = await createPackageAction(formData)
     if (resp.success) {
-      toast.success("Announcement created")
+      toast.success("Package created")
     }
     else {
       toast.error(resp.errors?.map((e) => e.message).join(", "))
@@ -53,42 +54,31 @@ const AnnouncementCreate = ({ users }: Props) => {
   }
 
   return (
-    <div className='flex flex-col gap-3'>Add Announcement
+    <div className='flex flex-col gap-3'>Add Package
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit, (inval) => {
           console.log("inval", inval)
         })} className="space-y-8">
           <FormField
             control={form.control}
-            name="text"
+            name="companyName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Text</FormLabel>
-                <FormControl>
-                  <Textarea placeholder="Announcement text" {...field} />
-                </FormControl>
+                <FormLabel>Company</FormLabel>
+                <Input  placeholder="Company Name" {...field} />
                 <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="for"
+            name="salary"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>For</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a role" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="STUDENT">Student</SelectItem>
-                    <SelectItem value="FACULTY">Faculty</SelectItem>
-                    <SelectItem value="ADMIN">Admin</SelectItem>
-                  </SelectContent>
-                </Select>
+                <FormLabel>Salary</FormLabel>
+                <FormControl>
+                  <Input type="number" placeholder="Salary" {...field} />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
@@ -98,17 +88,17 @@ const AnnouncementCreate = ({ users }: Props) => {
             name="userId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>User</FormLabel>
+                <FormLabel>Student</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a user" />
+                      <SelectValue placeholder="Select a student" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {users.map((user) => (
-                      <SelectItem key={user.id} value={user.id}>
-                        {user.name}
+                    {students.map((student) => (
+                      <SelectItem key={student.id} value={student.id}>
+                        {student.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -124,4 +114,4 @@ const AnnouncementCreate = ({ users }: Props) => {
   )
 }
 
-export default AnnouncementCreate
+export default PackageCreate

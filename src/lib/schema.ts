@@ -51,15 +51,14 @@ export type CreateSubjectInput = z.infer<typeof createSubjectSchema>;
 
 export const createCourseSchema = z.object({
   name: z.string().min(1),
-  date: z.string(),
-  students: z.array(z.string().uuid()),
+  students: z.array(z.string().uuid()).optional(),
 });
 
 export type CreateCourseInput = z.infer<typeof createCourseSchema>;
 
 export const createPackageSchema = z.object({
-  companyId: z.string().uuid(),
-  salary: z.number().positive(),
+  companyName: z.string().min(1),
+  salary: z.coerce.number(),
   userId: z.string().uuid(),
 });
 

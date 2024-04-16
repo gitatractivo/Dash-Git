@@ -27,6 +27,7 @@ type Props = {}
 import { useFormState } from "react-dom"
 import { createUserAction } from '@/app/actions'
 import { toast } from 'sonner'
+import { Loader2 } from 'lucide-react'
 
 const UserCreate = (props: Props) => {
  
@@ -153,7 +154,7 @@ const UserCreate = (props: Props) => {
               </FormItem>
             )}
           />
-          <Button type="submit" >Submit</Button>
+          <Button type="submit" disabled={form.formState.isSubmitting}>{form.formState.isSubmitting && <Loader2 className='animate-spin' />}Submit</Button>
         </form>
       </Form>
     </div>

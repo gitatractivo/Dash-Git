@@ -2,6 +2,7 @@
 import { useAuth, useUser } from "@clerk/nextjs";
 import React, { useContext, useEffect, useState } from "react";
 import { User } from "@prisma/client";
+import prisma from '../../lib/prisma';
 
 interface ContextProviderProps {
   children?: React.ReactNode;
@@ -29,32 +30,44 @@ export const AuthContextProvider: React.FC<ContextProviderProps> = ({ children }
   useEffect(() => {
     const fetchUser = async () => {
       setIsLoading(true);
+      console.log(user)
+      const res = await fetch(`/api/users/search`,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email:user?.primaryEmailAddress?.emailAddress}),
+      });
+      const resp  = await res.json()
+      console.log(resp)
+      setUser(resp)
 
-      if (isSignedIn && user) {
-        "use server"; // Switch to the server context
-        user.primaryEmailAddress?.id
-        try {
-          const existingUser = await prisma?.user.findUnique({
-            where: { email: user.primaryEmailAddress?.id },
-          });
+      // "use server"; // Switch to the server context
+      // if (isSignedIn && user) {
+      //   user.primaryEmailAddress?.id
+      //   try {
+      //     const existingUser = await prisma?.user.findUnique({
+      //       where: { email: user.primaryEmailAddress?.id },
+      //     });
+      //     console.log("existinguser",existingUser)
 
-          if (existingUser) {
-            setUser(existingUser);
-          } else if(user.primaryEmailAddress?.emailAddress) {
-            const newUser = await prisma?.user.create({
-              data: {
-                email: user.primaryEmailAddress?.emailAddress,
-                name: user.fullName,
+      //     if (existingUser) {
+      //       setUser(existingUser);
+      //     } else if(user.primaryEmailAddress?.emailAddress) {
+      //       const newUser = await prisma?.user.create({
+      //         data: {
+      //           email: user.primaryEmailAddress?.emailAddress,
+      //           name: user.fullName,
                 
-              },
-            });
-            //@ts-ignore
-            setUser(newUser);
-          }
-        } catch (error) {
-          console.error("Error fetching or creating user:", error);
-        }
-      }
+      //         },
+      //       });
+      //       //@ts-ignore
+      //       setUser(newUser);
+      //     }
+      //   } catch (error) {
+      //     console.error("Error fetching or creating user:", error);
+      //   }
+      // }
 
       setIsLoading(false);
     };

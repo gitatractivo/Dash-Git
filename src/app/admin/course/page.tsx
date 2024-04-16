@@ -30,6 +30,7 @@ import { useFormState } from "react-dom"
 import { createCourseAction } from '@/app/actions'
 import { toast } from 'sonner'
 import { User } from '@prisma/client'
+import { Loader2 } from 'lucide-react'
 
 const CourseCreate = ({ students }: Props) => {
 
@@ -38,11 +39,13 @@ const CourseCreate = ({ students }: Props) => {
   })
 
   async function onSubmit(values: z.infer<typeof createCourseSchema>) {
+    console.log("hello")
     const formData = new FormData();
     Object.entries(values).forEach(([key, value]) => {
       formData.append(key, value as string | Blob);
     });
     const resp = await createCourseAction(formData)
+    console.log(resp)
     if (resp.success) {
       toast.success("Course created")
     }
@@ -50,6 +53,7 @@ const CourseCreate = ({ students }: Props) => {
       toast.error(resp.errors?.map((e) => e.message).join(", "))
     }
   }
+
 
   return (
     <div className='flex flex-col gap-3'>Add Course
@@ -70,21 +74,9 @@ const CourseCreate = ({ students }: Props) => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="date"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Date</FormLabel>
-                <FormControl>
-                  <Input type="date" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
          
-          <Button type="submit">Submit</Button>
+         
+          <Button type="submit" disabled={form.formState.isSubmitting}>{form.formState.isSubmitting&& <Loader2 className='animate-spin'/>}Submit</Button>
         </form>
       </Form>
     </div>

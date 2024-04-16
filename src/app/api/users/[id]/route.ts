@@ -13,9 +13,9 @@ export const GET = async (request: Request, { params }: { params: Params }) => {
       id: id,
     },
     include: {
-      Attendance: true,
-      Subject: true,
-      Package: true,
+      attendance: true,
+      subject: true,
+      package: true,
     },
   });
 

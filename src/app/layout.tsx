@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 import Nav from "@/components/Nav";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Foot } from "@/components/Footer";
+import { Toaster } from "@/components/ui/sonner"
+import { AuthContextProvider } from "@/components/Providers/UserProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +27,7 @@ export default function RootLayout({
       <body className={cn(inter.className, " ")}>
         <ContextProvider>
           <ClerkProvider>
+            <AuthContextProvider>
               <Nav />
             <div className="overflow-x-hidden min-h-screen flex flex-col gap-5 justify-between min-w-screen">
               <div id="blob"></div>
@@ -34,7 +37,9 @@ export default function RootLayout({
     
               </div>
             </div>
+            <Toaster/>
               <Foot />
+            </AuthContextProvider>
           </ClerkProvider>
         </ContextProvider>
       </body>

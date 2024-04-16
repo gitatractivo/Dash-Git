@@ -122,6 +122,14 @@ export default function Home() {
             </CardHeader>
           </Card>
           <Card className=" m-2 text-orange-400 border-orange-400 hover:scale-105 transition-all 0.5s ease-in-out cursor-pointer" onClick={() => {
+            router.push("/attendance");
+          }}>
+            <CardHeader>
+              <CardTitle>Attendance</CardTitle>
+              <CardDescription>Announce information here.</CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className=" m-2 text-orange-400 border-orange-400 hover:scale-105 transition-all 0.5s ease-in-out cursor-pointer" onClick={() => {
             router.push("/announcement");
           }}>
             <CardHeader>

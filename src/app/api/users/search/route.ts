@@ -3,9 +3,10 @@ import { NextResponse } from "next/server";
 import { searchUsersSchema, SearchUsersInput } from "@/lib/schema";
 import { Prisma } from "@prisma/client";
 
-export const GET = async (request: Request) => {
+export const POST = async (request: Request) => {
    const body = await request.json();
-   const result = searchUsersSchema.safeParse(body);
+   const result = searchUsersSchema.safeParse(body)
+   console.log(result);
 
    if (!result.success) {
      return NextResponse.json(
@@ -28,12 +29,12 @@ export const GET = async (request: Request) => {
     where.regNo = regNo;
   }
 
-  const users = await prisma.user.findMany({
+  const users = await prisma.user.findFirst({
     where,
     include: {
-      Attendance: true,
-      Subject: true,
-      Package: true,
+      attendance: true,
+      subject: true,
+      package: true,
     },
   });
 

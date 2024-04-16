@@ -2,6 +2,8 @@
 
 import { createAnnouncementSchema, createCourseSchema, createPackageSchema, createSubjectSchema, createUserSchema } from "@/lib/schema";
 import { z } from "zod";
+import prisma from '@/lib/prisma';
+import { Company } from '@prisma/client';
 
 
 export async function createUserAction(formData: FormData) {
@@ -44,6 +46,20 @@ export async function createSubjectAction(formData: FormData) {
     if (zodData.success) {
       const data = zodData.data;
       const resp = await prisma?.subject.create({ data });
+      const resp2 = await prisma.user.update({
+        where:{
+          id:data.teacherId,
+        },
+        
+          data:{
+            subjectTaught:{
+              connect:{
+                id:resp.id
+              }
+            }
+          }
+        
+      })
       console.log(resp);
       return {
         success: true,
@@ -76,9 +92,7 @@ export async function createCourseAction(formData: FormData) {
       const resp = await prisma?.course.create({
         data: {
           ...data,
-          students: {
-            connect: data.students.map((id) => ({ id })),
-          },
+          students: undefined,
         },
       });
       console.log(resp);
@@ -110,8 +124,20 @@ export async function createPackageAction(formData: FormData) {
     const zodData = createPackageSchema.safeParse(form);
     if (zodData.success) {
       const data = zodData.data;
-      const resp = await prisma?.package.create({ data });
-      console.log(resp);
+      const comp = await prisma.company.create({
+        data:{
+          name:data.companyName
+        }
+      })
+
+      const resp = await prisma?.package.create({
+        data: {
+          salary: data.salary,
+          userId: data.userId,
+          companyId: comp.id
+          
+        },
+      });
       return {
         success: true,
         message: "Successfully created package",
@@ -161,5 +187,29 @@ export async function createAnnouncementAction(formData: FormData) {
       message: "Error creating announcement",
       errors: [{ message: (error as Error).message }],
     };
+  }
+}
+
+
+export async function markAttendanceAction(formData: FormData) {
+  const userId = formData.get("userId") as string;
+  const lectureId = formData.get("lectureId") as string;
+
+  try {
+    const attendance = await prisma.attendance.create({
+      data: {
+        studentId: userId,
+        lectureId: lectureId,
+        status: "PRESENT",
+      },
+    });
+    return {
+      success: true,
+      message: "Attendance marked successfully",
+      data: attendance,
+    };
+  } catch (error) {
+    console.log(error);
+    return { success: false, message: "Error marking attendance", error };
   }
 }

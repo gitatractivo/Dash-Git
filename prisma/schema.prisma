@@ -51,16 +51,16 @@ model Subject {
 
 model Lecture {
   id         String       @id @default(uuid()) @db.Uuid
-  date       DateTime
+  createdAt  DateTime     @default(now())
   subject    Subject      @relation(fields: [subjectId], references: [id])
   subjectId  String       @db.Uuid
   attendance Attendance[]
 }
 
 model Course {
-  id   String   @id @default(uuid()) @db.Uuid
-  date DateTime
-  name String
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  createdAt DateTime @default(now())
 
   subject  Subject[]
   students User[]
@@ -85,20 +85,21 @@ enum AttendanceStatus {
   ABSENT
 }
 
+
+
 model Company {
-  id       String    @id @default(uuid()) @db.Uuid
-  name     String
-  location String?
-  Package  Package[]
+  id        String    @id @default(uuid()) @db.Uuid
+  name      String
+  packages  Package[]
 }
 
 model Package {
-  id        String  @id @default(uuid()) @db.Uuid
-  companyId String  @db.Uuid
-  company   Company @relation(fields: [companyId], references: [id])
+  id        String   @id @default(uuid()) @db.Uuid
   salary    Float
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String  @unique @db.Uuid
+  userId    String   @unique @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company   Company  @relation(fields: [companyId], references: [id])
+  companyId String   @db.Uuid
 }
 
 model Announcement {

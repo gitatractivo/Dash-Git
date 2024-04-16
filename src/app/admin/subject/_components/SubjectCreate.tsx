@@ -31,6 +31,7 @@ import { useFormState } from "react-dom"
 import { createSubjectAction } from '@/app/actions'
 import { toast } from 'sonner'
 import { Course, User } from '@prisma/client'
+import { Loader2 } from 'lucide-react'
 
 const SubjectCreate = ({ courses, teachers }: Props) => {
 
@@ -44,11 +45,16 @@ const SubjectCreate = ({ courses, teachers }: Props) => {
       formData.append(key, value as string | Blob);
     });
     const resp = await createSubjectAction(formData)
-    if (resp.success) {
-      toast.success("Subject created")
-    }
-    else {
-      toast.error(resp.errors?.map((e) => e.message).join(", "))
+    console.log(resp)
+    try {
+      if (resp.success) {
+        toast.info("Subject created")
+      }
+      else {
+        toast.error(resp.errors?.map((e) => e.message).join(", "))
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -145,7 +151,7 @@ const SubjectCreate = ({ courses, teachers }: Props) => {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={form.formState.isSubmitting}>{form.formState.isSubmitting && <Loader2 className='animate-spin' />}Submit</Button>
         </form>
       </Form>
     </div>
