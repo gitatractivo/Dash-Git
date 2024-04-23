@@ -20,7 +20,7 @@ export const Foot: React.FC<FootProps> = () => {
         <div className="ml-4 font-semibold">Dash</div>
       </div>
       <div className=" p-3 text-[14px] flex justify-between">
-        {isLoaded && isSignedIn && user?.role === "TEACHER" && <Link className="w-[80px] h-8 font flex items-center justify-center cursor-pointer select-none mr-2 hover:underline" href="/admin">Admin</Link>}
+        { <Link className="w-[80px] h-8 font flex items-center justify-center cursor-pointer select-none mr-2 hover:underline" href="/admin">Admin</Link>}
         <div className="w-[120px] h-8 font flex items-center justify-center cursor-pointer select-none mr-2 hover:underline">
           Privacy Policy
         </div>
