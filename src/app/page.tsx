@@ -62,7 +62,7 @@ export default function Home() {
   }, [index]);
 
   return (
-    <main id="mainwindow" className="flex select-none cursor-default gap-10 py-5 flex-col items-center justify-between px-5 lg:p-28 mt-[80px] transition-all ease-in-out 1s">
+    <main id="mainwindow" className="flex select-none cursor-default gap-10 py-5 flex-col items-center justify-between px-5 lg:p-28    transition-all ease-in-out 1s">
 
       <style jsx>
         {`

@@ -144,7 +144,7 @@ const UserCreate = (props: Props) => {
                   <SelectContent>
                     <SelectItem value="STUDENT">Student</SelectItem>
                     <SelectItem value="ADMIN">Admin</SelectItem>
-                    <SelectItem value="FACULTY">Faculty</SelectItem>
+                    <SelectItem value="TEACHER">Teacher</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormControl>

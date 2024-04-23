@@ -190,7 +190,7 @@ export default function Page() {
                     <FormItem>
                       <FormLabel>Message</FormLabel>
                       <FormControl>
-                      <Textarea />
+                        <Textarea {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

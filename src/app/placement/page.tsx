@@ -150,8 +150,9 @@ const Page = (props: Props) => {
   // const form = useForm()
 
   return (
-    <div className="w-full h-fit min-h-[50vh] max-w-[800px] mx-auto flex flex-col items-center justify-center mt-[80px] md:mt-0">
-      <Table>
+    <div className="w-full h-fit min-h-[50vh] max-w-[1000px] mx-auto flex flex-col gap-3 items-center justify-center mt-[80px] md:mt-0">
+      <h1 className='text-left text-2xl'>Placement Data</h1>
+      <Table className='border w-full'>
         <TableCaption>Placement Data</TableCaption>
         <TableHeader>
           <TableRow>
