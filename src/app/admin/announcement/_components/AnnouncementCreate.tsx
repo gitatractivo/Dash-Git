@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -31,14 +31,25 @@ import { createAnnouncementAction } from '@/app/actions'
 import { toast } from 'sonner'
 import { User } from '@prisma/client'
 import { Loader2 } from 'lucide-react'
+import { useAuthContext } from '@/components/Providers/UserProvider'
 
 const AnnouncementCreate = ({ users }: Props) => {
+  const {user}=useAuthContext()
 
   const form = useForm<z.infer<typeof createAnnouncementSchema>>({
     resolver: zodResolver(createAnnouncementSchema),
+    defaultValues:{
+      userId:user?.id
+    }
   })
+  useEffect(() => {
+    if (user) {
+      form.setValue('userId', user.id);
+    }
+  }, [user, form]);
 
   async function onSubmit(values: z.infer<typeof createAnnouncementSchema>) {
+    console.log(values)
     const formData = new FormData();
     Object.entries(values).forEach(([key, value]) => {
       formData.append(key, value as string | Blob);
@@ -77,7 +88,7 @@ const AnnouncementCreate = ({ users }: Props) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>For</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a role" />
@@ -93,30 +104,7 @@ const AnnouncementCreate = ({ users }: Props) => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="userId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>User</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a user" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {users.map((user) => (
-                      <SelectItem key={user.id} value={user.id}>
-                        {user.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          
           <Button type="submit" disabled={form.formState.isSubmitting}>{form.formState.isSubmitting && <Loader2 className='animate-spin' />}Submit</Button>
         </form>
       </Form>

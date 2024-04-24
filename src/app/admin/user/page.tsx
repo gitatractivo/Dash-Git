@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { use } from 'react'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -28,16 +28,20 @@ import { useFormState } from "react-dom"
 import { createUserAction } from '@/app/actions'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
+import { data } from '../../../lib/data';
+import { useAuthContext } from '@/components/Providers/UserProvider'
 
 const UserCreate = (props: Props) => {
- 
+  const { user } = useAuthContext()
+
   const form = useForm<z.infer<typeof createUserSchema>>({
     resolver: zodResolver(createUserSchema),
-    defaultValues:{
-      role:"STUDENT"
+    defaultValues: {
+      role: "STUDENT"
     }
-    
+
   })
+
 
   async function onSubmit(values: z.infer<typeof createUserSchema>) {
     // Do something with the form values.
@@ -45,21 +49,21 @@ const UserCreate = (props: Props) => {
     // console.log(typeof values)
     const formData = new FormData();
     Object.entries(values).forEach(([key, value]) => {
-      formData.append(key, value as string|Blob);
+      formData.append(key, value as string | Blob);
     });
     const resp = await createUserAction(formData)
-    if (resp.success){
+    if (resp.success) {
       toast.success("User created")
     }
-    else{
-      toast.error(resp.errors?.map((e)=>e.message).join(", "))
+    else {
+      toast.error(resp.errors?.map((e) => e.message).join(", "))
     }
     // console.log(resp
   }
   return (
     <div className='flex flex-col gap-3'>Add user
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit,(inval)=>{
+        <form onSubmit={form.handleSubmit(onSubmit, (inval) => {
           console.log("inval", inval)
         })} className="space-y-8">
           <FormField
@@ -119,7 +123,7 @@ const UserCreate = (props: Props) => {
                 <FormControl>
                   <Input placeholder="regNo" {...field} />
                 </FormControl>
-                
+
                 <FormMessage />
               </FormItem>
             )}
@@ -135,12 +139,12 @@ const UserCreate = (props: Props) => {
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Choose Role" >
-                        {field.value[0]+field.value.slice(1).toLowerCase()}
+                        {field.value[0] + field.value.slice(1).toLowerCase()}
                       </SelectValue>
                     </SelectTrigger>
 
                   </FormControl>
-                 
+
                   <SelectContent>
                     <SelectItem value="STUDENT">Student</SelectItem>
                     <SelectItem value="ADMIN">Admin</SelectItem>
@@ -149,14 +153,16 @@ const UserCreate = (props: Props) => {
                 </Select>
                 <FormControl>
                 </FormControl>
-                
+
                 <FormMessage />
               </FormItem>
             )}
           />
           <Button type="submit" disabled={form.formState.isSubmitting}>{form.formState.isSubmitting && <Loader2 className='animate-spin' />}Submit</Button>
         </form>
+
       </Form>
+      
     </div>
   )
 }

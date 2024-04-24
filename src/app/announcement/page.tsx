@@ -1,7 +1,6 @@
-"use client";
-import * as React from "react"
-import { useRouter } from "next/navigation";
+
 import { Button } from "@/components/ui/button"
+import prisma from '@/lib/prisma';
 import {
     Card,
     CardContent,
@@ -10,34 +9,31 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import ShowAnnouncements from "./_components/ShowAnnouncements";
 
 
 
-export default function Page() {
-    const router = useRouter();
+export default async function Page() {
+    const announcements = await prisma.announcement.findMany({
+        where: {
+            for: "STUDENT"
+        },
+        include:{
+            user: {
+                select: {
+                    name: true,
+                    email: true,
+                    id: true
 
+                }
+            
+            }
+        }
+    });
     return (
         <div className="m-40">
-        <Card className=" m-10 text-orange-400 border-orange-400 hover:scale-105 transition-all 0.5s ease-in-out cursor-pointer" onClick={() => {
-            router.push("/createAnnouncement");
-          }}>
-            <CardHeader>
-                <CardTitle>Create Announcement</CardTitle>
-                <CardDescription>Create a new announcement</CardDescription>
-            </CardHeader>
-        </Card>
-        <Card className=" m-10 text-orange-400 border-orange-400 hover:scale-105 transition-all 0.5s ease-in-out cursor-pointer">
-            <CardHeader>
-                <CardTitle>Create Google Form</CardTitle>
-                <CardDescription>Create a new announcement</CardDescription>
-            </CardHeader>
-        </Card>
-        <Card className=" m-10 text-orange-400 border-orange-400 hover:scale-105 transition-all 0.5s ease-in-out cursor-pointer">
-            <CardHeader>
-                <CardTitle>Checkout Prev Announcements</CardTitle>
-                <CardDescription>Create a new announcement</CardDescription>
-            </CardHeader>
-        </Card>
+            <h1 className="text-4xl font-bold">Announcements</h1>
+            <ShowAnnouncements announcements = {announcements} />
         </div>
 
     )

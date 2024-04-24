@@ -21,7 +21,7 @@ model User {
   subject       Subject[]     @relation(name: "student")
   regNo         String?       @unique
   package       Package?
-  announcement  Announcement?
+  announcement  Announcement[]
   gender        Gender?
   phone         String?       @unique
   subjectTaught Subject[]     @relation(name: "teacher")
@@ -107,6 +107,6 @@ model Announcement {
   for       Role     @default(STUDENT)
   text      String
   user      User     @relation(fields: [userId], references: [id])
-  userId    String   @unique @db.Uuid
+  userId    String   @db.Uuid
   createdAt DateTime @default(now())
 }

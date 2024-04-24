@@ -11,7 +11,7 @@ const LectureComponent = () => {
   const { user, isLoaded, isSignedIn } = useAuthContext();
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState('');
-  console.log(user)
+  console.log(subjects)
 
   useEffect(() => {
     // 

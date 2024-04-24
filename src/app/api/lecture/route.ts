@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import prisma from '../../../lib/prisma';
 
 export const POST = async (request: Request) => {
   
@@ -10,7 +11,7 @@ export const POST = async (request: Request) => {
 
   
  try {
-   const lecture = await prisma?.lecture.create({
+   const lecture = await prisma.lecture.create({
      data: {
        subjectId
      },
