@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import QRCode, { QRCodeCanvas } from 'qrcode.react';
+import ShowState from '../_components/ShowState';
 
 
 type Props = {}
@@ -36,6 +37,8 @@ const NewLecture = (props: Props) => {
       <h1>Lecture {window.location.host + qrCodeUrl}</h1>
       {/* @ts-ignore */}
       {leacture?.id&&(<QRCodeCanvas value={qrCodeUrl} />)}
+      {/* @ts-ignore */}
+      {leacture?.id&&<ShowState lectureId={leacture.id}/>}
       {/* Display the list of students whose attendance is marked */}
     </div>
   )
